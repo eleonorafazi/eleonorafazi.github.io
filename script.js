@@ -1,5 +1,5 @@
 const board = document.getElementById('game-board');
-//numeri e simboli abbinare di 8 coppie
+// numeri e simboli abbinare di 8 coppie
 const symbols = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 let cards = [...symbols, ...symbols];
 
@@ -15,7 +15,7 @@ cards.forEach(symbol => {
   card.classList.add('card', 'hidden');
   card.dataset.symbol = symbol;
   card.textContent = symbol;
-  //card.style.visibility = 'hidden'; // nasconde il simbolo finché non viene girato
+  //card.style.visibility = 'hidden'; 
   board.appendChild(card);
   card.addEventListener('click', () => {
 
@@ -43,7 +43,7 @@ cards.forEach(symbol => {
 
           //firstCard.style.visibility = 'hidden';
 
-          secondCard.style.visibility = 'hidden';
+          //secondCard.style.visibility = 'hidden';
 
           resetTurn();
 
