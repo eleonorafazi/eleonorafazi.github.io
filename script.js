@@ -24,40 +24,76 @@ cards.forEach(symbol => {
     card.classList.remove('hidden');
     card.style.visibility = 'visible';
 
-   if (!firstCard) {
-     firstCard = card;
+    if (!firstCard) {
+      firstCard = card;
      } else {
-     secondCard = card;
-     lockBoard = true;
+      secondCard = card;
+      lockBoard = true;
 
-   if (firstCard.dataset.symbol === secondCard.dataset.symbol) {
-     firstCard.classList.add('matched');
-     secondCard.classList.add('matched');
-     resetTurn();
-     } else {
-     setTimeout(() => {
+    if (firstCard.dataset.symbol === secondCard.dataset.symbol) {
+        firstCard.classList.add('matched');
+        secondCard.classList.add('matched');
+        resetTurn();
 
+      } else {
+         setTimeout(() => {
           firstCard.classList.remove('flipped');
-
           secondCard.classList.remove('flipped');
 
-          //firstCard.style.visibility = 'hidden';
-
-          //secondCard.style.visibility = 'hidden';
+         // firstCard.style.visibility = 'hidden';
+         // secondCard.style.visibility = 'hidden';
 
           resetTurn();
 
         }, 1000);
-     }
-    }
-    });
 
+      }
+   }
+  });
 });
-
 
 function resetTurn() {
 
   [firstCard, secondCard] = [null, null];
 
   lockBoard = false;
+}
+let attempts = 0;
+let score = 0;
+
+const attemptsDisplay = document.getElementById('attempts');
+const scoreDisplay = document.getElementById('score');
+
+let startTime = null;
+let timerInterval = null;
+let totalPairs = symbols.length;
+
+const timerDisplay = document.getElementById('timer');
+
+function startTimer() {
+  startTime = Date.now();
+  timerInterval = setInterval(() => {
+  const elapsed = Date.now() - startTime;
+  const minutes = Math.floor(elapsed / 60000).toString().padStart(2, '0');
+  const seconds = Math.floor((elapsed % 60000) / 1000).toString().padStart(2, '0');
+  timerDisplay.textContent = `${minutes}:${seconds}`;
+  }, 1000);
+  }
+  if (!firstCard) {
+
+
+    if (!startTime) startTimer();
+    //gestire il punteggio:
+    score++;
+    scoreDisplay.textContent = score;
+    
+    if (score === totalPairs) {     
+    clearInterval(timerInterval);
+    setTimeout(() => {
+    alert(`Hai vinto in ${attempts} tentativi e ${timerDisplay.textContent} minuti!`);
+    }, 300);
+    }
+  }
+function flipCard(card) {
+  card.classList.toggle('flipped');
 }
