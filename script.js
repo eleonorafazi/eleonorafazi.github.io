@@ -1,6 +1,6 @@
 const board = document.getElementById('game-board');
 // numeri e simboli abbinare di 8 coppie
-const symbols = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+const symbols = ['fa-camera-retro', 'fa-adjust', 'fa-book', 'fa-id-card-o', 'fa-diamond', 'fa-sun-o', 'fa-film', 'fa-tty'];
 let cards = [...symbols, ...symbols];
 
 // mischiare le carte
@@ -14,7 +14,11 @@ cards.forEach(symbol => {
   const card = document.createElement('div');
   card.classList.add('card', 'hidden');
   card.dataset.symbol = symbol;
-  card.textContent = symbol;
+
+  const tagI = document.createElement('i');
+  tagI.classList.add('fa',symbol);
+  card.appendChild(tagI);
+
   //card.style.visibility = 'hidden'; 
   board.appendChild(card);
   card.addEventListener('click', () => {
@@ -22,12 +26,15 @@ cards.forEach(symbol => {
    if (lockBoard || card.classList.contains('flipped') || card.classList.contains('matched')) return;
     card.classList.add('flipped');
     card.classList.remove('hidden');
+    tagI.style.visibility = 'visible'
     card.style.visibility = 'visible';
 
     if (!firstCard) {
       firstCard = card;
+      firstTagI = card.getElementsByTagName('i')[0];
      } else {
       secondCard = card;
+      secondTagI = card.getElementsByTagName('i')[0];
       lockBoard = true;
 
     if (firstCard.dataset.symbol === secondCard.dataset.symbol) {
@@ -40,8 +47,9 @@ cards.forEach(symbol => {
           firstCard.classList.remove('flipped');
           secondCard.classList.remove('flipped');
 
-         // firstCard.style.visibility = 'hidden';
-         // secondCard.style.visibility = 'hidden';
+         firstTagI.style.visibility = 'hidden';
+         secondTagI.style.visibility = 'hidden';
+        tagI.style.visibility = 'hidden';
 
           resetTurn();
 
@@ -97,3 +105,11 @@ function startTimer() {
 function flipCard(card) {
   card.classList.toggle('flipped');
 }
+
+const card = document.querySelectorAll('.memory-card');
+
+function flipCard() {
+  this.classList.toggle('flip');
+}
+
+cards.forEach(card => card.addEventListener('click', flipCard));

@@ -32,6 +32,10 @@ body {
   .card.hidden {
   background: #3498db;
   }
+
+  .card.hidden i {
+    display: none;
+  }
   #stats {
 
     font-size: 1.2rem;
@@ -79,3 +83,38 @@ body {
     transform: rotateY(180deg);
     }
     
+    .memory-card.flip {
+  transform: rotateY(180deg);
+}
+
+.memory-game {
+  width: 640px;
+  height: 640px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+ perspective:1000px;
+}
+
+.memory-card {
+  width: calc(25% - 10px);
+  height: calc(33.333% - 10px);
+  margin: 5px;
+  position: relative;
+  box-shadow: 1px 1px 1px rgba(0,0,0,.3);
+  transform: scale(1);
+transform-style: preserve-3d;
+}
+
+
+.memory-card {
+  width: calc(25% - 10px);
+  height: calc(33.333% - 10px);
+  margin: 5px;
+  position: relative;
+  box-shadow: 1px 1px 1px rgba(0,0,0,.3);
+  transform: scale(1);
+  transform-style: preserve-3d;
+ transition: transform .5s;
+}
+
